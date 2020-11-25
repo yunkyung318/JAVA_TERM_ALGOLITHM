@@ -3,13 +3,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PassWord {// 8~20ÀÚ¸®±îÁö ¼³Á¤ °¡´É, ¿µ¹®+¼ýÀÚ+Æ¯¼ö¹®ÀÚ Á¶ÇÕÀÎÁö Ã¼Å© Å¬·¡½º
-	public static final String pattern1 = "^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$";// ¿µ¾î,¼ýÀÚ,Æ¯¼ö¹®ÀÚ
+public class PassWord {
+	public static final String pattern1 = "^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,20}$";// ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private String password;
 	Matcher match;
 	Scanner sc=new Scanner(System.in);
 	
-	public boolean PasswordRegularExpressionCheck(String newPwd) { // Á¤±Ô½Ä È®ÀÎ
+	public boolean PasswordRegularExpressionCheck(String newPwd) {
 		boolean check = false;
 		
 		match = Pattern.compile(pattern1).matcher(newPwd);
@@ -25,17 +25,17 @@ public class PassWord {// 8~20ÀÚ¸®±îÁö ¼³Á¤ °¡´É, ¿µ¹®+¼ýÀÚ+Æ¯¼ö¹®ÀÚ Á¶ÇÕÀÎÁö Ã¼
 			this.password=newPwd;
 		}
 		else {
-			System.out.println("Æ¯¼ö ¹®ÀÚ ¹× ¼ýÀÚ 1°³ ÀÌ»ó Æ÷ÇÔÇÏ¿© ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			System.out.println("Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			String rePwd=sc.next();
 			SetPassWord(rePwd);
 		}
 	}
 	public void Check(String pwd) {
 		if(password.equals(pwd)==true) {
-			System.out.println("°ü¸®ÀÚ ¸Þ´º ¿ÀÇÂ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}
 		else {
-			System.out.println("ºñ¹Ð ¹øÈ£ ¿À·ù. ÀçÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			System.out.println("ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			String rePwd=sc.next();
 			Check(rePwd);
 		}

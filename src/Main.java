@@ -1,266 +1,162 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 import java.util.*;
 
-public class Main implements Function {
-	Scanner scanner = new Scanner(System.in);
+public class Main extends JFrame {
 
 	final int MaxPrice = 5000;
 	int num = 0;
-	Ten ten = new Ten();
-	Fifty fif = new Fifty();
-	OneHundred oneHund = new OneHundred();
-	FiveHundred fiveHund = new FiveHundred();
-	OneThousand oneThous = new OneThousand();
 
-	Water water = new Water();
-	Coffe coffe = new Coffe();
-	Ionic ionic = new Ionic();
-	HighCoffe highcoffe = new HighCoffe();
-	Soda soda = new Soda();
+	Ten ten;
+	Fifty fif;
+	OneHundred oneHund;
+	FiveHundred fifHund;
+	OneThousand oneThous;
 
+	Water water;
+	Coffe coffe;
+	Ionic ionic;
+	HighCoffe highcoffe;
+	Soda soda;
+
+	JButton bwater;
+	JButton bcoffe;
+	JButton bionic;
+	JButton bhighcoffe;
+	JButton bsoda;
+
+	JButton bten;
+	JButton bfif;
+	JButton boneHund;
+	JButton bfifHund;
+	JButton boneThous;
+	
 	AccumulationMoney money = new AccumulationMoney();
+	Scanner sc = new Scanner(System.in);
 
-	public void insert_Coin() {
-		int choice;
+	public Main() {
+		setTitle("Vending Machine");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		System.out.println(" µ·À» ³Ö¾îÁÖ¼¼¿ä.(ÁöÆó´Â 3000¿ø±îÁö, ÃÑ ±Ý¾× 5000¿ø ÀÌÇÏ¸¸ °¡´É)");
-		while (true) {
-			System.out.print(" 1:10¿ø, 2:50¿ø, 3:100¿ø, 4:500¿ø, 5:1,000¿ø");
-			System.out.println(" / Á¾·á ½Ã -1 ÀÔ·Â");
-			System.out.println(" ´©Àû ÅõÀÔ ±Ý¾× : " + money.getAccu_Money());
-			System.out.println();
-			choice = scanner.nextInt();
+		Container c = getContentPane();
+		c.setLayout(new FlowLayout());
 
-			if (money.getAccu_Money() >= MaxPrice) {
-				System.out.println(" ±Ý¾× ÃÊ°ú");
-				System.out.println(" ´©Àû ÅõÀÔ ±Ý¾× : " + money.getAccu_Money());
-				break;
-			}
+		ten = new Ten();
+		fif = new Fifty();
+		oneHund = new OneHundred();
+		fifHund = new FiveHundred();
+		oneThous = new OneThousand();
 
-			if (num == 3) {
-				if (choice == 5) {
-					System.out.println("ÁöÆó´Â 3000¿ø±îÁö¸¸ ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					continue;
-				}
-			}
-			switch (choice) {
-			case 1:
-				if (money.getAccu_Money() + ten.getPrice() > MaxPrice) {
-					System.out.println("ÃÖ´ë 5000¿ø±îÁö ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					break;
-				}
+		water = new Water();
+		coffe = new Coffe();
+		ionic = new Ionic();
+		highcoffe = new HighCoffe();
+		soda = new Soda();
+
+		ImageIcon iwater = new ImageIcon("C:/JAVA/pic/Water.jpg");
+		ImageIcon icoffe = new ImageIcon("C:/JAVA/pic/Coffe.jpg");
+		ImageIcon iionic = new ImageIcon("C:/JAVA/pic/Ionic.jpg");
+		ImageIcon ihighcoffe = new ImageIcon("C:/JAVA/pic/HighCoffe.jpg");
+		ImageIcon isoda = new ImageIcon("C:/JAVA/pic/Soda.jpg");
+
+		ImageIcon iten = new ImageIcon("C:/JAVA/pic/10won.png");
+		ImageIcon ifif = new ImageIcon("C:/JAVA/pic/50won.png");
+		ImageIcon ioneHund = new ImageIcon("C:/JAVA/pic/100won.png");
+		ImageIcon ififHund = new ImageIcon("C:/JAVA/pic/500won.png");
+		ImageIcon ioneThous = new ImageIcon("C:/JAVA/pic/1000won.png");
+
+		bwater = new JButton("ë¬¼", iwater);
+		bcoffe = new JButton("ì»¤í”¼", icoffe);
+		bionic = new JButton("ì´ì˜¨ìŒë£Œ", iionic);
+		bhighcoffe = new JButton("ê³ ê¸‰ì»¤í”¼", ihighcoffe);
+		bsoda = new JButton("íƒ„ì‚°ìŒë£Œ", isoda);
+
+		bten = new JButton(iten);
+		bfif = new JButton(ifif);
+		boneHund = new JButton(ioneHund);
+		bfifHund = new JButton(ififHund);
+		boneThous = new JButton(ioneThous);
+		
+		bwater.setBackground(new Color(255, 234, 234));
+		bcoffe.setBackground(new Color(255, 234, 234));
+		bionic.setBackground(new Color(255, 234, 234));
+		bhighcoffe.setBackground(new Color(255, 234, 234));
+		bsoda.setBackground(new Color(255, 234, 234));
+
+		if (money.getAccu_Money() > MaxPrice) {
+			bten.setEnabled(false);
+			bfif.setEnabled(false);
+			boneHund.setEnabled(false);
+			bfifHund.setEnabled(false);
+			boneThous.setEnabled(false);
+		}
+
+		bten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (money.getAccu_Money() + ten.getPrice() > MaxPrice)
+					bten.setEnabled(false);
 				ten.setCoin(ten.getCoin() + 1);
 				money.setAccu_Money(money.getAccu_Money() + ten.getPrice());
-				System.out.println(ten.getCoin() + "°³");
-				break;
-
-			case 2:
-				if (money.getAccu_Money() + fif.getPrice() > MaxPrice) {
-					System.out.println("ÃÖ´ë 5000¿ø±îÁö ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					break;
-				}
+			}
+		});
+		
+		bfif.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (money.getAccu_Money() + fif.getPrice() > MaxPrice)
+					bfif.setEnabled(false);
 				fif.setCoin(fif.getCoin() + 1);
 				money.setAccu_Money(money.getAccu_Money() + fif.getPrice());
-				System.out.println(fif.getCoin() + "°³");
-				break;
-
-			case 3:
-				if (money.getAccu_Money() + oneHund.getPrice() > MaxPrice) {
-					System.out.println("ÃÖ´ë 5000¿ø±îÁö ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					break;
-				}
+			}
+		});
+		
+		boneHund.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (money.getAccu_Money() + oneHund.getPrice() > MaxPrice)
+					boneHund.setEnabled(false);
 				oneHund.setCoin(oneHund.getCoin() + 1);
 				money.setAccu_Money(money.getAccu_Money() + oneHund.getPrice());
-				System.out.println(oneHund.getCoin() + "°³");
-				break;
-
-			case 4:
-				if (money.getAccu_Money() + fiveHund.getPrice() > MaxPrice) {
-					System.out.println("ÃÖ´ë 5000¿ø±îÁö ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					break;
-				}
-				fiveHund.setCoin(fiveHund.getCoin() + 1);
-				money.setAccu_Money(money.getAccu_Money() + fiveHund.getPrice());
-				System.out.println(fiveHund.getCoin() + "°³");
-				break;
-
-			case 5:
-				if (money.getAccu_Money() + oneThous.getPrice() > MaxPrice) {
-					System.out.println("ÃÖ´ë 5000¿ø±îÁö ÅõÀÔ °¡´ÉÇÕ´Ï´Ù.");
-					break;
-				}
+			}
+		});
+		
+		bfifHund.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (money.getAccu_Money() + fifHund.getPrice() > MaxPrice)
+					bfifHund.setEnabled(false);
+				fifHund.setCoin(fifHund.getCoin() + 1);
+				money.setAccu_Money(money.getAccu_Money() + fifHund.getPrice());
+			}
+		});
+		
+		boneThous.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				++num;
+				if (num == 3)
+					boneThous.setEnabled(false);
+				if (money.getAccu_Money() + oneThous.getPrice() > MaxPrice)
+					boneThous.setEnabled(false);
 				oneThous.setCoin(oneThous.getCoin() + 1);
 				money.setAccu_Money(money.getAccu_Money() + oneThous.getPrice());
-				num++;
-				System.out.println(oneThous.getCoin() + "°³");
-				break;
-
-			case -1:
-				System.out.println(" ´©Àû ÅõÀÔ ±Ý¾× : " + money.getAccu_Money());
-				return;
 			}
-		}
-	}
+		});
+		
+		c.add(bwater);
+		c.add(bcoffe);
+		c.add(bionic);
+		c.add(bhighcoffe);
+		c.add(bsoda);
+		c.add(bten);
 
-	public void return_Coin() {
-		if (money.getAccu_Money() == 0)
-			System.out.println("¹ÝÈ¯ ±Ý¾×ÀÌ ¾ø½À´Ï´Ù.");
-		else {
-			if (num > 0 && (money.getAccu_Money() >= oneThous.getPrice())) {
-				while (true) {
-					System.out.println("È­Æó ¹ÝÈ¯À» ¿øÇÏ½Ã¸é 0À» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-					int yes = scanner.nextInt();
-					int count=0;
-					if (yes == 0) {
-						for(int i=0;i<num;i++) {
-							if(num>0&&money.getAccu_Money()>=oneThous.getPrice()) {
-								oneThous.setCoin(oneThous.getCoin() - 1);
-								money.setAccu_Money(money.getAccu_Money() - oneThous.getPrice());
-								num -= 1;
-								count++;
-							}
-						}
-					}
-					System.out.print("1000¿ø:"+count+" ");
-					break;
-				}
-			}
+		c.add(bfif);
+		c.add(boneHund);
+		c.add(bfifHund);
+		c.add(boneThous);
 
-			int RfifHund = money.getAccu_Money() / fiveHund.getPrice();
-			fiveHund.setCoin(fiveHund.getCoin() - RfifHund);
-			money.setAccu_Money(money.getAccu_Money() - (fiveHund.getPrice() * RfifHund));
-
-			int RoneHund = money.getAccu_Money() / oneHund.getPrice();
-			oneHund.setCoin(oneHund.getCoin() - RoneHund);
-			money.setAccu_Money(money.getAccu_Money() - (oneHund.getPrice() * RoneHund));
-
-			int Rfif = money.getAccu_Money() / fif.getPrice();
-			fif.setCoin(fif.getCoin() - Rfif);
-			money.setAccu_Money(money.getAccu_Money() - (fif.getPrice() * Rfif));
-
-			int Rten = money.getAccu_Money() / ten.getPrice();
-			ten.setCoin(ten.getCoin() - Rten);
-			money.setAccu_Money(money.getAccu_Money() - (ten.getPrice() * Rten));
-
-			System.out.println(
-					"500¿ø:" + RfifHund + "°³, 100¿ø:" + RoneHund + "°³, 50¿ø:" + Rfif + "°³, 10¿ø:" + Rten + "°³ ¹ÝÈ¯ ¿Ï·á");
-		}
-		System.out.println("ÃÑ " + money.getAccu_Money() + "¿ø ¹ÝÈ¯ ¿Ï·á");
-
-	}
-
-	public void insert_menu() {
-		// GUI ±¸Çö
-	}
-
-	public void delete_menu() {
-
-	}
-
-	public void manage_Stock() {
-
-	}
-
-	public void print_menu() {
-
-	}
-
-	public void choice_memu() {
-		while (true) {
-			System.out.print("¿øÇÏ´Â À½·á¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä. ");
-			System.out.println("1.¹°:450¿ø, 2.Ä¿ÇÇ:500¿ø, 3.ÀÌ¿ÂÀ½·á:550¿ø, 4.°í±ÞÄ¿ÇÇ:700¿ø, 5.Åº»êÀ½·á:750¿ø");
-
-			if (money.getAccu_Money() == 0) {
-				System.out.println("ÀÜµ·ÀÌ ¾ø½À´Ï´Ù.");
-			}
-
-			int drink = scanner.nextInt();
-
-			switch (drink) {
-			case 1:
-				if (water.getDrink() == 0) {
-					System.out.println("¹° Ç°Àý.");
-					break;
-				}
-				if (money.getAccu_Money() < water.getPrice()) {
-					System.out.println("ÀÜµ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-					break;
-				}
-				money.setAccu_Money(money.getAccu_Money() - water.getPrice());
-				water.setDrink(water.getDrink() - 1);
-				System.out.println("¹°ÀÌ ³ª¿Ô½À´Ï´Ù.");
-				break;
-
-			case 2:
-				if (coffe.getDrink() == 0) {
-					System.out.println("Ä¿ÇÇ Ç°Àý.");
-					break;
-				}
-				if (money.getAccu_Money() < coffe.getPrice()) {
-					System.out.println("ÀÜµ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-					break;
-				}
-				money.setAccu_Money(money.getAccu_Money() - coffe.getPrice());
-				coffe.setDrink(coffe.getDrink() - 1);
-				System.out.println("Ä¿ÇÇ°¡ ³ª¿Ô½À´Ï´Ù.");
-				break;
-
-			case 3:
-				if (ionic.getDrink() == 0) {
-					System.out.println("ÀÌ¿Â À½·á Ç°Àý.");
-					break;
-				}
-				if (money.getAccu_Money() < ionic.getPrice()) {
-					System.out.println("ÀÜµ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-					break;
-				}
-				money.setAccu_Money(money.getAccu_Money() - ionic.getPrice());
-				ionic.setDrink(ionic.getDrink() - 1);
-				System.out.println("ÀÌ¿Â À½·á°¡ ³ª¿Ô½À´Ï´Ù.");
-				break;
-
-			case 4:
-				if (highcoffe.getDrink() == 0) {
-					System.out.println("°í±Þ Ä¿ÇÇ Ç°Àý.");
-					break;
-				}
-				if (money.getAccu_Money() < highcoffe.getPrice()) {
-					System.out.println("ÀÜµ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-					break;
-				}
-				money.setAccu_Money(money.getAccu_Money() - highcoffe.getPrice());
-				highcoffe.setDrink(highcoffe.getDrink() - 1);
-				System.out.println("°í±Þ Ä¿ÇÇ  ³ª¿Ô½À´Ï´Ù.");
-				break;
-
-			case 5:
-
-				if (soda.getDrink() == 0) {
-					System.out.println("Åº»ê À½·á Ç°Àý.");
-					break;
-				}
-				if (money.getAccu_Money() < soda.getPrice()) {
-					System.out.println("ÀÜµ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-					break;
-				}
-				money.setAccu_Money(money.getAccu_Money() - soda.getPrice());
-				soda.setDrink(soda.getDrink() - 1);
-				System.out.println("Åº»ê À½·á°¡ ³ª¿Ô½À´Ï´Ù.");
-				break;
-			case -1:
-				return;
-			}
-			System.out.println("ÀÜµ· : " + money.getAccu_Money() + "¿ø");
-		}
+		setSize(450, 500);
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		Main main = new Main();
-		main.insert_Coin();
-		main.choice_memu();
-		main.return_Coin();
-
-		PassWord pwd = new PassWord();
-		boolean bo = pwd.PasswordRegularExpressionCheck("dbs851285!");
-		System.out.println(bo);
+		new Main();
 	}
 }

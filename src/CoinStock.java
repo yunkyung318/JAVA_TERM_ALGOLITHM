@@ -1,4 +1,4 @@
-// 동전 재고
+
 public class CoinStock {
 	private int coin;
 
