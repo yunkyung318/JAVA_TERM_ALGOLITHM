@@ -6,6 +6,10 @@ public class Water extends DrinkStock {
 		this.price = 450;
 	}
 
+	public void setPrice(int price) {
+		this.price=price;
+	}
+	
 	public int getPrice() {
 		return price;
 	}

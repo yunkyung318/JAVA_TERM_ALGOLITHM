@@ -7,6 +7,10 @@ public class Coffe extends DrinkStock {
 		this.price = 500;
 	}
 
+	public void setPrice(int price) {
+		this.price=price;
+	}
+	
 	public int getPrice() {
 		return price;
 	}

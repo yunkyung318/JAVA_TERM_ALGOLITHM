@@ -1,4 +1,4 @@
-// 음료 재고
+
 public class DrinkStock {
 	private int drink;
 
